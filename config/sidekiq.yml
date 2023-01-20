@@ -1,0 +1,21 @@
+concurrency: 5
+# staging:
+#   concurrency: 10
+# production:
+#   concurrency: 10
+queues:
+  # - The 'intensive' queue is configured using capsule in sidekiq.rb
+  - critical
+  - default
+  - low_priority
+
+# https://github.com/sidekiq-scheduler/sidekiq-scheduler
+schedule:
+  RenewCertificatesWorker:
+    cron: "0 0 * * *"
+  MonitorCertificateValidityWorker:
+    cron: "0 * * * *"
+  MaintenanceWorker:
+    cron: "0 * * * *"
+  NotifyStudentCourseExpiryWorker:
+    cron: "30 18 * * *" # IST 12 AM
